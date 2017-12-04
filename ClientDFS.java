@@ -46,7 +46,7 @@ public class ClientDFS{
 					{
 						data = obj.Read(nameArchive);
 						if(data == null){
-							System.out.println("\nArquivo não encontrado. Tente Novamente.\n");
+							System.out.println("\nArquivo nao encontrado. Tente Novamente.\n");
 						}else
 							System.out.println(data);
 						
@@ -71,12 +71,24 @@ public class ClientDFS{
 
 						do{
 							try{
-								System.out.println("Sobrescrever arquivo?  ->  S/N :");
-								if(invalid == true){
-									sc.nextLine();
+								boolean loop = true;
+								int i = 0;
+								while(loop){
+									if(i == 0){
+										System.out.println("Sobrescrever arquivo?  ->  S/N :");
+									}
+									if(invalid == true){
+										sc.nextLine();
+									}
+									answer = sc.nextLine();
+									invalid = false;
+									if(answer.equalsIgnoreCase("S") || answer.equalsIgnoreCase("N")){
+										loop = false;
+									}else {
+										System.out.println("Digite um caractere valido  ->  S/N ");
+										i = i+1;
+									 }
 								}
-								answer = sc.nextLine();
-								invalid = false;
 							}
 							catch(InputMismatchException e){
 								invalid = true;
@@ -92,7 +104,7 @@ public class ClientDFS{
 
 						find = obj.Write(nameArchive,text,append);
 						if (find == false){
-							System.out.println("\nArquivo não encontrado, tente novamente.\n");
+							System.out.println("\nArquivo nao encontrado, tente novamente.\n");
 						}else 
 							System.out.println("\nArquivo modificado com sucesso.\n");
 
@@ -101,7 +113,7 @@ public class ClientDFS{
 					{
 						find = obj.Create(nameArchive);
 						if (find == false){
-							System.out.println("\nArquivo já existente.\n");
+							System.out.println("\nArquivo ja existente.\n");
 						}else
 							System.out.println("\nArquivo criado com sucesso.\n");
 					}
@@ -109,7 +121,7 @@ public class ClientDFS{
 					{
 						find = obj.Delete(nameArchive);
 						if (find == false){
-							System.out.println("\nArquivo não encontrado, tente novamente.\n");
+							System.out.println("\nArquivo nao encontrado, tente novamente.\n");
 						}else
 							System.out.println("\nArquivo deletado com sucesso.\n");
 					}
@@ -122,11 +134,11 @@ public class ClientDFS{
 
 		}catch(Exception e)
 		{
-			System.out.println("FALHA NA CONEXÃO COM O SERVIDOR.");
+			System.out.println("FALHA NA CONEXAO COM O SERVIDOR.");
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("Fim da execução do cliente.");
+		System.out.println("Fim da execucao do cliente.");
 
 		sc.close();
 	}
