@@ -9,15 +9,15 @@ import java.io.PrintWriter;
 import java.io.*;
 import java.io.FileNotFoundException;
 
-public class DataNode extends UnicastRemoteObject implements DataNodeIF {
+public class DataNode1 extends UnicastRemoteObject implements DataNodeIF {
 
-	public DataNode() throws RemoteException{
+	public DataNode1() throws RemoteException{
 		super();
 	}
 	
 
 	public String ReadArchive(String nameA) throws IOException, FileNotFoundException {
-		File file = new File("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt");
+		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt");
 		
 		if(file.exists()){
 			String data = "";
@@ -37,11 +37,11 @@ public class DataNode extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean WriteArchive(String nameA, String text, boolean append) throws IOException{
-		File file = new File("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt");
+		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt");
 
         if(file.exists()){
 
-	       	FileWriter arq = new FileWriter("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt",append);
+	       	FileWriter arq = new FileWriter("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt",append);
 	   		PrintWriter gravarArq = new PrintWriter(arq);
 	   		gravarArq.println(text);
 	   		gravarArq.close();
@@ -52,11 +52,11 @@ public class DataNode extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean CreateArchive(String nameA) throws IOException{
-		File file = new File("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt");
+		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt");
 
         if(!file.exists()){
 
-	       	FileWriter arq = new FileWriter("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt");
+	       	FileWriter arq = new FileWriter("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt");
 	       	arq.close();
 	   		return true;
 
@@ -65,12 +65,10 @@ public class DataNode extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean DeleteArchive(String nameA) throws IOException{
-		File file = new File("C:\\Users\\Claudio\\Desktop\\"+nameA+".txt");
+		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/"+nameA+".txt");
 
         if(file.exists()){
-        	System.out.println("Existe.");
 	       	if(file.delete()){
-	       		System.out.println("Deletou.");
 	       		return true;	
 	       	}   		
 
@@ -83,9 +81,9 @@ public class DataNode extends UnicastRemoteObject implements DataNodeIF {
 	{
 		try {
 			
-            DataNode servidor = new DataNode();
-            Naming.bind("Nodesystem", servidor);
-            System.err.println("Datanode pronto para uso.");
+            DataNode1 servidor = new DataNode1();
+            Naming.bind("Datanode1", servidor);
+            System.err.println("Datanode1 pronto para uso.");
             
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());

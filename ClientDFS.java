@@ -18,7 +18,7 @@ public class ClientDFS{
 		
 		try
 		{
-			ProxyIF obj = (ProxyIF) Naming.lookup("//"+""+"/Filesystem");
+			ProxyIF obj = (ProxyIF) Naming.lookup("//"+""+"/Proxy");
 			do
 			{
 				System.out.println("Qual funcao voce quer executar?(R -> READ / W -> WRITE / C -> CREATE / D -> DELETE):");

@@ -12,31 +12,44 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 {
 	boolean find = false;
 	String data = null;
+	String datanode = null;
 
 	public Proxy() throws RemoteException{
 		super();
 	}
 	
 	public String Read(String nameA){
-		try{			
-		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Nodesystem");
+	try{
+		System.out.println("- Solicitação de leitura do arquivo "+nameA+".txt");			
+		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
+		datanode = name.GetDataNode(nameA);
+		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);
 		data = obj.ReadArchive(nameA);
+		if(data != null){
+			System.out.println("- Arquivo "+nameA+".txt"+" encontrado no Datanode "+datanode);
+		}else {
+			System.out.println("- Arquivo "+nameA+".txt"+" não encontrado.");
+		}
 		}catch(Exception e){
 			System.out.println("FALHA NA CONEXÃO COM O SERVIDOR.");
 			System.out.println(e.getMessage());
 		}
-
-		//Integer servidor = hashCode(nameA);
-		//String datanode = Integer.toString(servidor);
-		//DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/"+datanode);
 		return data;
 	}
 
 	public boolean Write(String nameA, String text, boolean append){
 
-	try{			
-		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Nodesystem");
+	try{
+		System.out.println("- Solicitação de escrita no arquivo "+nameA+".txt");
+		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
+		datanode = name.GetDataNode(nameA);
+		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);		
 		find = obj.WriteArchive(nameA, text, append);
+		if(find){
+			System.out.println("- Arquivo "+nameA+".txt"+" atualizado no Datanode "+datanode);
+		}else{
+			System.out.println("- Arquivo "+nameA+".txt"+" não encontrado.");
+		}
 		}catch(Exception e){
 			System.out.println("FALHA NA CONEXÃO COM O SERVIDOR.");
 			System.out.println(e.getMessage());
@@ -45,9 +58,17 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 	}
 
 	public boolean Create(String nameA){
-		try{			
-		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Nodesystem");
+	try{
+		System.out.println("- Solicitação de criacao do arquivo "+nameA+".txt");
+		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
+		datanode = name.GetDataNode(nameA);
+		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);			
 		find = obj.CreateArchive(nameA);
+		if(find){
+			System.out.println("- Arquivo "+nameA+".txt"+" criado no Datanode "+datanode);
+		}else{
+			System.out.println("- O arquivo "+nameA+".txt"+" já existe no Datanode "+datanode);
+		}
 		}catch(Exception e){
 			System.out.println("FALHA NA CONEXÃO COM O SERVIDOR.");
 			System.out.println(e.getMessage());
@@ -56,9 +77,17 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 	}
 
 	public boolean Delete(String nameA){
-		try{			
-		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Nodesystem");
+	try{
+		System.out.println("- Solicitação de delete do arquivo "+nameA+".txt");
+		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
+		datanode = name.GetDataNode(nameA);
+		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);			
 		find = obj.DeleteArchive(nameA);
+		if(find){
+			System.out.println("- Arquivo "+nameA+".txt"+" deletado do Datanode "+datanode);
+		}else{
+			System.out.println("- Arquivo "+nameA+".txt"+" não encontrado.");
+		}
 		}catch(Exception e){
 			System.out.println("FALHA NA CONEXÃO COM O SERVIDOR.");
 			System.out.println(e.getMessage());
@@ -76,7 +105,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 		try {
 			
             Proxy servidor = new Proxy();
-            Naming.bind("Filesystem", servidor);
+            Naming.bind("Proxy", servidor);
             System.err.println("Proxy pronto para uso.");
             
         } catch (Exception e) {
