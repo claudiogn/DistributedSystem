@@ -24,7 +24,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
 		datanode = name.GetDataNode(nameA);
 		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);
-		data = obj.ReadArchive(nameA);
+		data = obj.ReadArchive(nameA, datanode);
 		if(data != null){
 			System.out.println("- Arquivo "+nameA+".txt"+" encontrado no Datanode "+datanode);
 		}else {
@@ -44,7 +44,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
 		datanode = name.GetDataNode(nameA);
 		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);		
-		find = obj.WriteArchive(nameA, text, append);
+		find = obj.WriteArchive(nameA, text, append, datanode);
 		if(find){
 			System.out.println("- Arquivo "+nameA+".txt"+" atualizado no Datanode "+datanode);
 		}else{
@@ -63,7 +63,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
 		datanode = name.GetDataNode(nameA);
 		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);			
-		find = obj.CreateArchive(nameA);
+		find = obj.CreateArchive(nameA,datanode);
 		if(find){
 			System.out.println("- Arquivo "+nameA+".txt"+" criado no Datanode "+datanode);
 		}else{
@@ -82,7 +82,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
 		datanode = name.GetDataNode(nameA);
 		DataNodeIF obj = (DataNodeIF) Naming.lookup("//"+""+"/Datanode"+datanode);			
-		find = obj.DeleteArchive(nameA);
+		find = obj.DeleteArchive(nameA,datanode);
 		if(find){
 			System.out.println("- Arquivo "+nameA+".txt"+" deletado do Datanode "+datanode);
 		}else{

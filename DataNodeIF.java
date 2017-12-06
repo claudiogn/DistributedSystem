@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 
 public interface DataNodeIF extends Remote {
 
-	public String ReadArchive(String nameA) throws RemoteException, IOException, FileNotFoundException;
+	public String ReadArchive(String nameA, String datanode) throws RemoteException, IOException, FileNotFoundException;
 
-	public boolean WriteArchive(String nameA, String text, boolean append) throws RemoteException, IOException;
+	public boolean WriteArchive(String nameA, String text, boolean append, String datanode) throws RemoteException, IOException;
 
-	public boolean CreateArchive(String nameA) throws RemoteException, IOException;
+	public boolean CreateArchive(String nameA, String datanode) throws RemoteException, IOException;
 
-	public boolean DeleteArchive(String nameA) throws RemoteException, IOException;
+	public boolean DeleteArchive(String nameA, String datanode) throws RemoteException, IOException;
 }
