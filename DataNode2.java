@@ -17,7 +17,8 @@ public class DataNode2 extends UnicastRemoteObject implements DataNodeIF {
 	
 
 	public String ReadArchive(String nameA, String datanode) throws IOException, FileNotFoundException {
-		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt");
+		String currentDir = System.getProperty("user.dir");
+		File file = new File(currentDir+"/Datanode"+datanode+"/"+nameA+".txt");
 		
 		if(file.exists()){
 			String data = "";
@@ -37,11 +38,12 @@ public class DataNode2 extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean WriteArchive(String nameA, String text, boolean append, String datanode) throws IOException{
-		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt");
+		String currentDir = System.getProperty("user.dir");
+		File file = new File(currentDir+"/Datanode"+datanode+"/"+nameA+".txt");
 
         if(file.exists()){
 
-	       	FileWriter arq = new FileWriter("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt",append);
+	       	FileWriter arq = new FileWriter(currentDir+"/Datanode"+datanode+"/"+nameA+".txt",append);
 	   		PrintWriter gravarArq = new PrintWriter(arq);
 	   		gravarArq.println(text);
 	   		gravarArq.close();
@@ -52,11 +54,12 @@ public class DataNode2 extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean CreateArchive(String nameA, String datanode) throws IOException{
-		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt");
+		String currentDir = System.getProperty("user.dir");
+		File file = new File(currentDir+"/Datanode"+datanode+"/"+nameA+".txt");
 
         if(!file.exists()){
 
-	       	FileWriter arq = new FileWriter("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt");
+	       	FileWriter arq = new FileWriter(currentDir+"/Datanode"+datanode+"/"+nameA+".txt");
 	       	arq.close();
 	   		return true;
 
@@ -65,7 +68,8 @@ public class DataNode2 extends UnicastRemoteObject implements DataNodeIF {
 	}
 
 	public boolean DeleteArchive(String nameA, String datanode) throws IOException{
-		File file = new File("/Users/renansampaio/Desktop/DistributedSystem/Datanode"+datanode+"/"+nameA+".txt");
+		String currentDir = System.getProperty("user.dir");
+		File file = new File(currentDir+"/Datanode"+datanode+"/"+nameA+".txt");
 
         if(file.exists()){
 	       	if(file.delete()){

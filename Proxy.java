@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class Proxy extends UnicastRemoteObject implements ProxyIF
 {
-	boolean find = false;
+	
 	String data = null;
 	String datanode = null;
 
@@ -38,7 +38,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 	}
 
 	public boolean Write(String nameA, String text, boolean append){
-
+	boolean find = false;
 	try{
 		System.out.println("- Solicitação de escrita no arquivo "+nameA+".txt");
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
@@ -58,6 +58,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 	}
 
 	public boolean Create(String nameA){
+	boolean find = false;
 	try{
 		System.out.println("- Solicitação de criacao do arquivo "+nameA+".txt");
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");
@@ -77,6 +78,7 @@ public class Proxy extends UnicastRemoteObject implements ProxyIF
 	}
 
 	public boolean Delete(String nameA){
+	boolean find = false;
 	try{
 		System.out.println("- Solicitação de delete do arquivo "+nameA+".txt");
 		NameNodeIF name = (NameNodeIF) Naming.lookup("//"+""+"/Namenode");

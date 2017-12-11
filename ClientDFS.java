@@ -113,7 +113,7 @@ public class ClientDFS{
 					{
 						find = obj.Create(nameArchive);
 						if (find == false){
-							System.out.println("\nArquivo ja existente.\n");
+							System.out.println("\nFalha ao criar arquivo.\n");
 						}else
 							System.out.println("\nArquivo criado com sucesso.\n");
 					}
